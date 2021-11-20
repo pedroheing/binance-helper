@@ -34,7 +34,7 @@ export class TaxasOrdemComponent implements OnInit {
   public operacoes = Operacao;
   public form: FormGroup;
   public dataSource: MatTableDataSource<ResultadoTaxa>;
-  public displayedColumns: string[] = ['ativo', 'data', 'operacao', 'quantidade', 'taxa'];
+  public displayedColumns: string[] = ['ativo', 'data', 'operacao', 'quantidade', 'taxa', 'acoes'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -85,6 +85,11 @@ export class TaxasOrdemComponent implements OnInit {
     var ws = XLSX.utils.aoa_to_sheet(ws_data);
     XLSX.utils.book_append_sheet(wb, ws, ws_name);
     XLSX.writeFile(wb, 'result.xlsb');
+  }
+
+  public remover(i: number) {
+    this.dataSource.data.splice(i, 1);
+    this.dataSource.filter = ""
   }
 
 }
