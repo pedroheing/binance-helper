@@ -1,0 +1,33 @@
+.container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;   
+}
+
+.container-tabela-resultado {
+    width: 50%;
+}
+
+.container-tabela-resultado table {
+    width: 100%;
+}
+
+.container-resultado {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.container-acoes {
+    margin-bottom: 10px;
+}
+
+.container-acoes button {
+    margin-right: 10px;
+}

@@ -1,0 +1,79 @@
+<div class="container">
+  <div>
+    <form [formGroup]="form" class="formulario">
+      <mat-form-field appearance="fill">
+        <mat-label>Ativo</mat-label>
+        <input formControlName="ativo" autocomplete="off" matInput>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Data</mat-label>
+        <input matInput formControlName="data" [matDatepicker]="picker" autocomplete="off">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Operação</mat-label>
+        <mat-select formControlName="operacao">
+          <mat-option *ngFor="let o of operacoes | keyvalue" [value]="o.value">
+            {{o.key}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Quantidade</mat-label>
+        <input formControlName="quantidade" autocomplete="off" matInput>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Preço</mat-label>
+        <input formControlName="preco" currencyMask [options]="{ prefix: '', precision: 8, thousands: '.', decimal: ',', inputMode: 0 }" autocomplete="off" matInput>
+      </mat-form-field>
+  
+      <button [disabled]="!form.valid" (click)="calcular()" mat-raised-button color="primary">Calcular</button>
+    </form>
+  </div>
+
+  <div class="container-resultado">
+    <div class="container-acoes">
+      <button mat-raised-button (click)="exportarParaExcel()" color="primary">Exportar para Excel</button>
+      <button (click)="limpar()" mat-raised-button color="danger">Limpar resultados</button>
+    </div>
+  
+    <div *ngIf="dataSource.data.length > 0" class="container-tabela-resultado">
+      <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="ativo">
+          <th mat-header-cell *matHeaderCellDef> ativo </th>
+          <td mat-cell *matCellDef="let element"> {{element.ativo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="data">
+          <th mat-header-cell *matHeaderCellDef> Data </th>
+          <td mat-cell *matCellDef="let element"> {{element.data | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="operacao">
+          <th mat-header-cell *matHeaderCellDef> Operação </th>
+          <td mat-cell *matCellDef="let element"> {{element.operacao}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantidade">
+          <th mat-header-cell *matHeaderCellDef> Quantidade </th>
+          <td mat-cell *matCellDef="let element"> {{element.quantidade}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="taxa">
+          <th mat-header-cell *matHeaderCellDef> Taxa </th>
+          <td mat-cell *matCellDef="let element"> {{element.taxa}} </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
